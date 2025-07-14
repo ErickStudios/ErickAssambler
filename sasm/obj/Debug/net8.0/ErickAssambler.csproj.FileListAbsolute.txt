@@ -1,0 +1,15 @@
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\ErickAssambler.exe
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\ErickAssambler.deps.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\ErickAssambler.runtimeconfig.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\ErickAssambler.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\ErickAssambler.pdb
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.AssemblyInfoInputs.cache
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.AssemblyInfo.cs
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.csproj.CoreCompileInputs.cache
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.sourcelink.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\refint\ErickAssambler.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.pdb
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ErickAssambler.genruntimeconfig.cache
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ref\ErickAssambler.dll

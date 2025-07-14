@@ -1,0 +1,34 @@
+C:\Users\erick\source\repos\sasm\sasm\bin\Debug\net8.0\sasm.exe
+C:\Users\erick\source\repos\sasm\sasm\bin\Debug\net8.0\sasm.deps.json
+C:\Users\erick\source\repos\sasm\sasm\bin\Debug\net8.0\sasm.runtimeconfig.json
+C:\Users\erick\source\repos\sasm\sasm\bin\Debug\net8.0\sasm.dll
+C:\Users\erick\source\repos\sasm\sasm\bin\Debug\net8.0\sasm.pdb
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.AssemblyInfoInputs.cache
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.AssemblyInfo.cs
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.csproj.CoreCompileInputs.cache
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.dll
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\refint\sasm.dll
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.pdb
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\sasm.genruntimeconfig.cache
+C:\Users\erick\source\repos\sasm\sasm\obj\Debug\net8.0\ref\sasm.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\bin\Debug\net8.0\sasm.exe
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\bin\Debug\net8.0\sasm.deps.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\bin\Debug\net8.0\sasm.runtimeconfig.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\bin\Debug\net8.0\sasm.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\bin\Debug\net8.0\sasm.pdb
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.AssemblyInfoInputs.cache
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.AssemblyInfo.cs
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.csproj.CoreCompileInputs.cache
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.sourcelink.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\refint\sasm.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.pdb
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\sasm.genruntimeconfig.cache
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\sasm\obj\Debug\net8.0\ref\sasm.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\sasm.exe
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\sasm.deps.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\sasm.runtimeconfig.json
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\sasm.dll
+C:\Users\erick\OneDrive\ErickCraftStudiosMgrChannel\Saved Proyects\S-SUNEFI\S-SUN\kernel\usr\sasm\Debug\net8.0\sasm.pdb
