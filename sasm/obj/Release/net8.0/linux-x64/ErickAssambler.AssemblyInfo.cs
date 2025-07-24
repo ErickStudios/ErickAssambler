@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ErickAssambler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3fc8ad119a2b69b3cd206504df31bbd5d5432a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d29e95e9a031c60bcccc49e2ad6dcfa0bb323fa5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ErickAssambler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ErickAssambler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

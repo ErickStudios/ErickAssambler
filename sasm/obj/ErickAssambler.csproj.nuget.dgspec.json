@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\S-SUNEFI\\S-SUN\\kernel\\usr\\sasm\\sasm\\ErickAssambler.csproj": {}
+    "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\ErickAssambler\\ErickAssambler\\sasm\\ErickAssambler.csproj": {}
   },
   "projects": {
-    "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\S-SUNEFI\\S-SUN\\kernel\\usr\\sasm\\sasm\\ErickAssambler.csproj": {
+    "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\ErickAssambler\\ErickAssambler\\sasm\\ErickAssambler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\S-SUNEFI\\S-SUN\\kernel\\usr\\sasm\\sasm\\ErickAssambler.csproj",
+        "projectUniqueName": "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\ErickAssambler\\ErickAssambler\\sasm\\ErickAssambler.csproj",
         "projectName": "ErickAssambler",
-        "projectPath": "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\S-SUNEFI\\S-SUN\\kernel\\usr\\sasm\\sasm\\ErickAssambler.csproj",
+        "projectPath": "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\ErickAssambler\\ErickAssambler\\sasm\\ErickAssambler.csproj",
         "packagesPath": "C:\\Users\\erick\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\S-SUNEFI\\S-SUN\\kernel\\usr\\sasm\\sasm\\obj\\",
+        "outputPath": "C:\\Users\\erick\\OneDrive\\ErickCraftStudiosMgrChannel\\Saved Proyects\\ErickAssambler\\ErickAssambler\\sasm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

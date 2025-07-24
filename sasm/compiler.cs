@@ -1,4 +1,9 @@
-﻿/**
+﻿
+
+using System;
+using System.Collections.Generic;
+
+/**
  * compiler.cs
  * 
  * ErickAssembly writen by ErickCraftStudis
@@ -11,35 +16,38 @@ namespace sasm
     class compiler
     {
         public char mov_instruction = Convert.ToChar(1);
-        public char add_instruction= Convert.ToChar( 2);
-        public char sub_instruction= Convert.ToChar( 3);
-        public char div_instruction= Convert.ToChar( 4);
-        public char imul_instruction= Convert.ToChar( 5);
-        public char incr_instruction= Convert.ToChar( 6);
-        public char decr_instruction= Convert.ToChar( 7);
-        public char jump_instruction= Convert.ToChar( 8);
-        public char ret_instruction= Convert.ToChar( 9);
-        public char section_instruction= Convert.ToChar( 10);
-        public char interruption_instruction= Convert.ToChar( 11);
-        public char jq_instruction = Convert.ToChar(  12);
-        public char jg_instruction = Convert.ToChar(  13);
-        public char jng_instruction = Convert.ToChar(  14);
-        public char jnq_instruction = Convert.ToChar(  15);
-        public char extern_ptr_write_instruction= Convert.ToChar( 16);
-        public char extern_ptr_get_instruction= Convert.ToChar( 17);
-        public char lea_instruction= Convert.ToChar( 18);
+        public char add_instruction = Convert.ToChar(2);
+        public char sub_instruction = Convert.ToChar(3);
+        public char div_instruction = Convert.ToChar(4);
+        public char imul_instruction = Convert.ToChar(5);
+        public char incr_instruction = Convert.ToChar(6);
+        public char decr_instruction = Convert.ToChar(7);
+        public char jump_instruction = Convert.ToChar(8);
+        public char ret_instruction = Convert.ToChar(9);
+        public char section_instruction = Convert.ToChar(10);
+        public char interruption_instruction = Convert.ToChar(11);
+        public char jq_instruction = Convert.ToChar(12);
+        public char jg_instruction = Convert.ToChar(13);
+        public char jng_instruction = Convert.ToChar(14);
+        public char jnq_instruction = Convert.ToChar(15);
+        public char extern_ptr_write_instruction = Convert.ToChar(16);
+        public char extern_ptr_get_instruction = Convert.ToChar(17);
+        public char lea_instruction = Convert.ToChar(18);
         public char nop_instruction = Convert.ToChar(19);
         public char ptr_instruction = Convert.ToChar(20);
         public char loop_instruction = Convert.ToChar(21);
-        public char safetynow_for_up = Convert.ToChar(  22);
+        public char shiftbitsleft_instruction = Convert.ToChar(22);
+        public char shiftbitsright_instruction = Convert.ToChar(23);
+        public char invalid_instruction = Convert.ToChar(24);
+        public char safetynow_for_up = Convert.ToChar(22);
         public char NULL_PARAM = Convert.ToChar(22);
-        
+
         /**
          * LexerInstruction
          * 
          * define una instruccion para el lexer
          */
-        public struct LexerInstruction 
+        public struct LexerInstruction
         {
             /**
              * opcode
@@ -85,6 +93,38 @@ namespace sasm
         }
 
         /**
+         * HightLevelAutopbusMethodType
+         * 
+         * el tipo del metodo de un autopbus method
+         */
+        public enum HightLevelAutopbusMethodType
+        {
+            Swinc = 0
+        }
+
+        /**
+         * HightLevelAutopbus
+         * 
+         * definir un metodo que usara una variable estructurada
+         */
+        public struct HightLevelAutopbus
+        {
+            /**
+             * HightLevelAutopbusMethodType
+             * 
+             * el tipo de esa cosa
+             */
+            public HightLevelAutopbusMethodType Type;
+
+            /**
+             * Body
+             * 
+             * el cuerpo de el autopbus
+             */
+            public string Body;
+        }
+
+        /**
          * HightLevelContext
          * 
          * contexto para el compilador de alto nivel
@@ -104,6 +144,13 @@ namespace sasm
              * los simbolos y sus opcodes
              */
             public Dictionary<string, string> symbols = new();
+
+            /**
+             * Autopbuses
+             * 
+             * los swinc y las otras cosas
+             */
+            public Dictionary<string, HightLevelAutopbus> Autopbuses = new();
 
             /**
              * HightLevelContext
@@ -246,6 +293,24 @@ namespace sasm
         }
 
         /**
+         * Warnning
+         * 
+         * shows a warnning
+         */
+        public void
+            Warnning
+            (
+            string message
+            )
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Warnning: ");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(message + "\n");
+        }
+
+        /**
          * TranslateHightLevelToAsm
          * 
          * traducir codigo de hlvc a el ErickAssembly corriente
@@ -264,7 +329,12 @@ namespace sasm
             ///
             /// el codigo resultante
             ///
-            string outpud = "";
+            string outpud = code.Contains("_Use DriverCompiler") ? "MP\n" : "EA\n";
+
+            ///
+            /// si esta en el alto nivel
+            ///
+            bool in_hightlevel = true;
 
             ///
             /// el contexto del compilador
@@ -272,10 +342,17 @@ namespace sasm
             HightLevelContext Context = new HightLevelContext();
 
             ///
+            /// el verificador que verifica que pools no han sido liberados
+            ///
+            Dictionary<string, string> NoFreededPools = new Dictionary<string, string>();
+
+            ///
             /// traducir linea por linea
             ///
-            foreach (string line in lines)
+            for (int i = 0; i < lines.Length; i++)
             {
+                string line = lines[i];
+
                 ///
                 /// instrucciones divididas
                 ///
@@ -287,16 +364,33 @@ namespace sasm
                 if (
                     line.Trim().TrimEnd() == "HightLevel[" || line.Trim().TrimEnd() == "]HightLevel")
                 {
-
+                    if (
+                        line.Trim().TrimEnd() == "HightLevel["
+                        )
+                    {
+                        in_hightlevel = true;
+                    }
+                    else if (
+                        line.Trim().TrimEnd() == "]HightLevel"
+                        )
+                    {
+                        in_hightlevel = false;
+                    }
                 }
 
                 ///
-                /// si no hay instrucciones
+                /// si no hay instrucciones o esta en el alto nivel
                 ///
-                if (
-                    instructions_divided.Length == 0
+                else if (
+                    instructions_divided.Length == 0 && !in_hightlevel
                     )
                 {
+                    if (
+                        !in_hightlevel
+                        )
+                    {
+                        outpud += line + "\n";
+                    }
                     continue;
                 }
 
@@ -304,10 +398,155 @@ namespace sasm
                 /// compatibilidad con ASCII
                 ///
                 else if (
-                    line.Trim() == "use \"ASCII\""
+                    line.Trim() == "use \"ASCII\"" || line.Trim() == "_Use ASCII"
                     )
                 {
                     Context.UsingAscii = true;
+                }
+
+                ///
+                /// swinc [Name] {
+                ///     [attributes]
+                /// }
+                /// 
+                /// define un swinc
+                ///
+                else if (
+                    instructions_divided[0] == "swinc" && lines[i + 1].Trim() == "{"
+                    )
+                {
+                    ///
+                    /// definir el nombre
+                    ///
+                    string swinc_name = instructions_divided[1];
+
+                    ///
+                    /// definir el cuerpo
+                    ///
+                    string body = "";
+
+                    i += 2;
+
+                    ///
+                    /// hacer el cuerpo
+                    ///
+                    while (
+                        lines[i].Trim() != "}"
+                        )
+                    {
+                        ///
+                        /// si es un auto variable
+                        ///
+                        if (
+                            lines[i].Trim().StartsWith("autv")
+                            )
+                        {
+                            string type = lines[i].Trim().Split("::")[1].Replace(";", "");
+                            string namee = lines[i].Trim().Substring(5).Split("::")[0].Replace(";", "");
+
+                            ///
+                            /// verificar si el tipo es otro swinc para remplazar todos los elementos
+                            ///
+                            if (
+                                type.StartsWith("swinc ")
+                                )
+                            {
+                                string body_m = Context.Autopbuses[type.Substring(6)].Body;
+
+                                body_m = body_m.Replace("autv ", "autv " + namee + ".");
+
+                                body += body_m;
+                            }
+                            else
+                            {
+                                ///
+                                /// añadirlo al cuerpo
+                                ///
+                                body += lines[i].Trim();
+                            }
+                        }
+                        i++;
+                    }
+
+                    HightLevelAutopbus Autopbus_swinc = new();
+
+                    Autopbus_swinc.Type = HightLevelAutopbusMethodType.Swinc;
+                    Autopbus_swinc.Body = body;
+
+                    //Console.WriteLine(body);
+
+                    Context.Autopbuses[swinc_name] = Autopbus_swinc;
+                }
+
+                ///
+                /// autopbus [Name]::[type]
+                /// 
+                /// definir una variable estructurada
+                ///
+                else if (
+                    line.Trim().StartsWith("autopbus ")
+                    )
+                {
+                    ///
+                    /// definir los parametros
+                    ///
+                    string vparam = line.Trim().Substring(9, line.Trim().Length - 9);
+
+                    ///
+                    /// definir el nombre
+                    ///
+                    string varname = vparam.Split("::")[0];
+
+                    ///
+                    /// definir el tipo
+                    ///
+                    string vartype = vparam.Split("::")[1];
+
+                    ///
+                    /// comparar el tipo
+                    ///
+
+                    ///
+                    /// es un swinc
+                    ///
+                    if (vartype.StartsWith("swinc "))
+                    {
+                        string swinc_name = vartype.Substring(6);
+
+                        string[] bodym = Context.Autopbuses[swinc_name].Body.Split(";");
+
+                        for (int vvmm = 0; vvmm < (bodym.Length - 1); vvmm++) {
+
+                            string item = bodym[vvmm];
+
+                            ///
+                            /// el nombre
+                            ///
+                            string ReferenceName = varname + "." + item.Substring(5).Split("::")[0].Trim();
+
+                            ///
+                            /// en donde se va a localizar
+                            ///
+                            string register_located = HightLevelSearchSpace(Context);
+
+                            ///
+                            /// añadirla a las referencias
+                            ///
+                            Context.symbols[ReferenceName] = register_located;
+
+                            Console.WriteLine("Compile variable " + ReferenceName);
+
+                            ///
+                            /// añadir documentacion
+                            ///
+                            outpud += ";\nDeclare variable " + ReferenceName + "\n;*\n";
+
+                            ///
+                            /// añadir la instruccion al archivo final
+                            ///
+                            outpud += ReferenceName + " = " + register_located + "\n";
+                        }
+                    }
                 }
 
                 ///
@@ -327,7 +566,7 @@ namespace sasm
                     /// el nuevo valor
                     ///
                     bool ee_n = (instructions_divided[2] != "'\\s'" && instructions_divided[2] != "'\\n'");
-                    
+
                     ///
                     /// si es un caracter
                     ///
@@ -337,9 +576,9 @@ namespace sasm
                     /// añadir la instruccion al archivo final
                     ///
                     outpud += "set_value_with_value 1," + Context.symbols[instructions_divided[0]] + "\nmove 2," + item_set + "\nmove 3," +
-                        (is_char ? ((ee_n) ? instructions_divided[2].ToUpper() : instructions_divided[2]) : instructions_divided[2]) + (is_char ? (ee_n ? (instructions_divided[2].ToUpper() != instructions_divided[2] ? "\nmove 4,32\nadd 3,4" : "")  : "") : "") + "\nsystem_call 16,1\n";
+                        (is_char ? ((ee_n) ? instructions_divided[2].ToUpper() : instructions_divided[2]) : instructions_divided[2]) + (is_char ? (ee_n ? (instructions_divided[2].ToUpper() != instructions_divided[2] ? "\nmove 4,32\nadd 3,4" : "") : "") : "") + "\nsystem_call 16,1\n";
                 }
-                
+
                 ///
                 /// SetVar [VarName] [NewValue]
                 /// 
@@ -374,6 +613,11 @@ namespace sasm
                     instructions_divided[0] == "#define"
                     )
                 {
+                    ///
+                    /// añadir documentacion
+                    ///
+                    outpud += ";\n Define macro " + instructions_divided[1].Replace("*", "") + "\n;*\n";
+
                     ///
                     /// añadir la instruccion al archivo final
                     ///
@@ -420,6 +664,11 @@ namespace sasm
                     string the_string = HightLevelSyntax(instructions_divided[1]);
 
                     ///
+                    /// añadir documentacion
+                    ///
+                    outpud += ";\n; Print " + the_string.Replace("*", "\\l") + "\n; *\n";
+
+                    ///
                     /// si es una linea
                     ///
                     if (
@@ -463,6 +712,19 @@ namespace sasm
                 }
 
                 ///
+                /// trabajar con punteros
+                ///
+                else if (
+                    line.Trim() == "[_Use _WorkWithPointers] _WorkActivity"
+                    )
+                {
+                    ///
+                    /// añadir la instruccion al archivo final
+                    ///
+                    outpud += "_WorkWithPointers ";
+                }
+
+                ///
                 /// call [Function]
                 /// 
                 /// llamar a una funcion
@@ -476,6 +738,18 @@ namespace sasm
                     ///
                     outpud += "call_function " + instructions_divided[1] + "\n";
                 }
+
+                /*
+                ///
+                /// ExecuteFile [BufferToName]
+                ///
+                else if (
+                    instructions_divided[0] == "ExecuteFile"
+                    )
+                {
+                    outpud += "call_function " + instructions_divided[1] + "\n";
+                }*/
+
 
                 ///
                 /// FUNCTION [FunctionName]
@@ -492,10 +766,15 @@ namespace sasm
                     string register_located = HightLevelSearchSpace(Context);
 
                     ///
+                    /// añadir documentacion
+                    ///
+                    outpud += ";\n; function " + instructions_divided[1].Replace("*", "\\l") + "\n; *\n";
+
+                    ///
                     /// añadir la instruccion al archivo final
                     ///
                     outpud += instructions_divided[1] + " = " + register_located + "\nfunction " + instructions_divided[1] + "\n";
-                   
+
                     ///
                     /// añadir la funcion a la lista de simbolos
                     ///
@@ -534,10 +813,12 @@ namespace sasm
                     instructions_divided[0] == "FreePool"
                     )
                 {
+                    NoFreededPools.Remove(instructions_divided[1]);
+
                     ///
                     /// añadir la instruccion al archivo final
                     ///
-                    outpud += "system_call 20," + instructions_divided[1] + "\n";
+                    outpud += ";\n; FreePool " + instructions_divided[1] + "\n;*\n" + "system_call 20," + instructions_divided[1] + "\n";
                 }
 
                 ///
@@ -565,10 +846,94 @@ namespace sasm
                     Context.symbols[ReferenceName] = register_located;
 
                     ///
+                    /// añadir documentacion
+                    ///
+                    outpud += ";\nDeclare variable " + ReferenceName + "\n;*\n";
+
+                    ///
                     /// añadir la instruccion al archivo final
                     ///
                     outpud += ReferenceName + " = " + register_located + "\n";
 
+                }
+
+                ///
+                /// ENUM_MEMBER [NAME] [VALUE]
+                /// 
+                /// define un miembro de una enumeracion
+                ///
+                else if (
+                    instructions_divided[0] == "_EnumMember"
+                    )
+                {
+
+                    ///
+                    /// el nombre
+                    ///
+                    string ReferenceName = instructions_divided[1];
+
+                    ///
+                    /// el valor
+                    ///
+                    string value = instructions_divided[2];
+
+                    ///
+                    /// añadir documentacion
+                    ///
+                    outpud += ";\nEnum Member " + ReferenceName + "\n;*\n";
+
+                    ///
+                    /// añadir la instruccion al archivo final
+                    ///
+                    outpud += ReferenceName + " = " + value + "\n";
+                }
+
+                ///
+                /// _Math [var] [operation] [param]
+                /// 
+                /// operaciones matematicas
+                ///
+                else if (
+                    instructions_divided[0] == "_Math"
+                    )
+                {
+                    string operation = instructions_divided[2];
+
+                    string variable_work = instructions_divided[1];
+                    string parameter = instructions_divided[3];
+
+                    ///
+                    /// añadir documentacion
+                    ///
+                    outpud += ";\nOperate Variable " + variable_work + " with operator " + operation + "\n;*\n";
+
+                    switch (operation)
+                    {
+                        case "+":
+                            outpud += "add ";
+                            break;
+                        case "-":
+                            outpud += "rest ";
+                            break;
+                        case "*":
+                            outpud += "multiplique ";
+                            break;
+                        case "/":
+                            outpud += "divide ";
+                            break;
+                        case ">>":
+                            outpud += "srght ";
+                            break;
+                        case "<<":
+                            outpud += "slft ";
+                            break;
+                        default:
+                            outpud += "AAAAAAAAAAAAHHHHHHHH ";
+                            Warnning("Invalid operation, solve the code , you will thank you to me it ^-^, well is just a warnning, nothing important");
+                            break;
+                    }
+
+                    outpud += variable_work + "," + parameter + "\n";
                 }
 
                 ///
@@ -583,7 +948,7 @@ namespace sasm
                     ///
                     /// la condicion
                     ///
-                    string condition = instructions_divided[1].Replace("\\s"," ");
+                    string condition = instructions_divided[1].Replace("\\s", " ");
                     string if_true_jump_to = instructions_divided[3].Replace("\\s", " ");
 
                     string[] syntax_divided = condition.Split("|");
@@ -599,6 +964,19 @@ namespace sasm
                         /// añadir la instruccion al archivo final
                         ///
                         outpud += "set_value_with_value 1," + Context.symbols[_params[0]] + "\n" + "set_value_with_value 2," + Context.symbols[_params[1]] + "\nsystem_call 24,1\n";
+                    }
+
+                    ///
+                    /// comparacion de buffers avanzada
+                    ///
+                    else if (condition.StartsWith("BufferNCmp<") && condition.EndsWith(">"))
+                    {
+                        string[] _params = condition.Substring(11, condition.Length - 12).Split(",");
+
+                        ///
+                        /// añadir la instruccion al archivo final
+                        ///
+                        outpud += "set_value_with_value 1," + Context.symbols[_params[0]] + "\n" + "set_value_with_value 2," + Context.symbols[_params[1]] + "\nmove 3," + _params[2] + "\nsystem_call 33,1\n";
                     }
 
                     ///
@@ -634,6 +1012,27 @@ namespace sasm
                 }
 
                 ///
+                /// ManualAllocation [BufferPtr] [Size]
+                /// 
+                /// cualquier buffer no asignado no que no se preocupe ya le tocara
+                ///
+                else if (
+                    instructions_divided[0] == "ManualAllocation" &&
+                    instructions_divided.Length == 3
+                    )
+                {
+                    ///
+                    /// añadir documentacion
+                    ///
+                    outpud += "; asignation of a pool*\n";
+
+                    ///
+                    /// añadir la instruccion al archivo final
+                    ///
+                    outpud += "move " + instructions_divided[1] + ",0\nmove " + instructions_divided[1] + "+1," + instructions_divided[2] + "\nsystem_call 14," + instructions_divided[1] + "\n";
+                }
+
+                ///
                 /// [BUFFER/POOL] [Name] [AllocationFunction]
                 /// 
                 /// crear un buffer
@@ -656,6 +1055,11 @@ namespace sasm
                     /// localizar un registro
                     ///
                     string register_located = HightLevelSearchSpace(Context);
+
+                    ///
+                    /// añadirlo al array
+                    ///
+                    NoFreededPools[ReferenceName] = register_located;
 
                     ///
                     /// añadir la referencia del buffer
@@ -701,6 +1105,13 @@ namespace sasm
             }
 
             /// Console.WriteLine(outpud);
+
+            foreach (var item in NoFreededPools)
+            {
+                Warnning("The pool " + item.Key + " have not a FreePool instruction");
+            }
+
+            Console.WriteLine(outpud);
 
             return outpud;
         }
@@ -1106,7 +1517,7 @@ namespace sasm
 
             return outpud;
         }
-
+        
         /**
          * DecompileCode
          * 
@@ -1188,8 +1599,11 @@ namespace sasm
             this.Instructions["multiplique"] = new(imul_instruction,2);
             this.Instructions["increment"] = new(incr_instruction,1);
             this.Instructions["_WorkWithPointers"] = new(nop_instruction, 0);
+            this.Instructions["slft"] = new(shiftbitsleft_instruction, 2);
+            this.Instructions["srght"] = new(shiftbitsright_instruction, 2);
             this.Instructions["decrement"] = new(decr_instruction,1);
             this.Instructions["call_function"] = new(jump_instruction,1);
+            this.Instructions["AAAAAAAAAAAAHHHHHHHH"] = new(invalid_instruction, 0);
             this.Instructions["if_equal"] = new(jq_instruction, 1);
             this.Instructions["if_not_equal"] = new(jnq_instruction, 1);
             this.Instructions["ret"] = new(ret_instruction,0);
